@@ -11,7 +11,9 @@ import UserBar from './UserBar'
 
 function App() {
 
+ const [ user, setUser ] = useState("");
   const [posts, setPosts] = useState([]);
+ 
 
   function addPost(newPost){
     setPosts( prevPosts => {
@@ -30,8 +32,12 @@ function App() {
   
   return (
     <div>
+       <UserBar user={user} setUser={setUser} /> 
   
-      <Postform onAdd={addPost} />
+     {user &&  <Postform 
+     user={user}
+      onAdd={addPost} />}
+
       {posts.map((postItem, index) => {
         return(
           <Post
@@ -39,8 +45,8 @@ function App() {
           id= {index}
           title= {postItem.title}
           content= {postItem.content}
-          author="Shumyla" 
-          handleDelete ={delPost}/>
+          handleDelete ={delPost}
+          author={user}/>
         )
       })}
      

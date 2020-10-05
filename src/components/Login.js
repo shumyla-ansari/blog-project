@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 
-export default function Login(props) {
+export default function Login({setUser}) {
 
     const [fullName, setFullName] = useState({
         email: "",
@@ -9,7 +9,7 @@ export default function Login(props) {
     })
 
     function handleClick(e){
-        props.setUser(fullName)
+        setUser(fullName)
         e.preventDefault();
     }
 
