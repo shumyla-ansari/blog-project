@@ -39,7 +39,8 @@ function App() {
           key = {index}
           id= {index}
           title= {postItem.title}
-          content= {postItem.content} 
+          content= {postItem.content}
+          author={user} 
           handleDelete ={delPost}/>
         )
       })}
