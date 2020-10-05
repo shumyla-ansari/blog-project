@@ -5,10 +5,9 @@ import Login from './Login'
 import Logout from './Logout';
 import Postform from './Postform';
 import Post from './Post';
+import UserBar from './UserBar'
 
-var isLoggedIn = true;
 
-const user = "Shumyla Ansari"
 
 function App() {
 
@@ -31,7 +30,7 @@ function App() {
   
   return (
     <div>
-      {isLoggedIn === true ? <Login value={user}/> : <Logout />}
+  
       <Postform onAdd={addPost} />
       {posts.map((postItem, index) => {
         return(
@@ -40,7 +39,7 @@ function App() {
           id= {index}
           title= {postItem.title}
           content= {postItem.content}
-          author={user} 
+          author="Shumyla" 
           handleDelete ={delPost}/>
         )
       })}
