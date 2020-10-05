@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import '../App.css'
 import Register from './Register'
-import Login from './Login'
-import Logout from './Logout';
+import Login from './Logout'
+import Logout from './Login';
 import Postform from './Postform';
 import Post from './Post';
 import UserBar from './UserBar'
