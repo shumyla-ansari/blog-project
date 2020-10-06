@@ -13,7 +13,7 @@ export default function Login({dispatch}) {
         }
 
     function handleClick(e){
-        dispatch({type: 'LOGIN', username})
+        dispatch({type: 'LOGIN', username});
         e.preventDefault();
     }
 

@@ -1,61 +1,52 @@
-import React, {useState, useReducer} from 'react';
+import React, { useReducer, useEffect} from 'react';
 import '../App.css'
 import Postform from './Postform';
 import Post from './Post';
 import UserBar from './UserBar'
+import appReducer from './Reducers'
 
 
-function userReducer (state, action) {
-  switch (action.type) {
-    case 'LOGIN':
-    case 'REGISTER':
-      return action.username
 
-    case 'LOGOUT':
-      return ''
-
-    default:
-      throw new Error()  
-
-  }
-}
-
-function postsReducer (state, action) {
-  switch (action.type) {
-    case 'POST_FORM' :
-      const newPost = { title: action.title, content: action.content, author: action.author}
-      return [ newPost, ...state ]
-
-      default:
-        throw new Error()
-  
-    }
-}
-//the userReducer function is defined, 
+//the userReducer function is defined in Reducers.js now
 //and we can move on to defining the Reducer Hook
 
 function App() {
 
+
+  const [ state, dispatch ] = useReducer(appReducer, {user: '', posts: [] })
+
+  //we extract the user and posts values from our state object, using destructuring:
+  const { user, posts } = state
+
+  useEffect(() => {
+    if (user) {
+      document.title = `${user} - React Hooks Blog`
+    }
+    else {
+      document.title = "React Hooks Blog"
+    }
+  }, [user])
+
 //Here we are removing useStatehook and replacing it with
 //useReducer hook.
  //const [ user, setUser ] = useState("");
- const [ user, dispatchUser ] = useReducer(userReducer, '' )
+// const [ user, dispatchUser ] = useReducer(userReducer, '' )
  //initial state value is empty string
  //userReducer is the reducer function, which will take current state
  //and an action.
 
   //const [posts, setPosts] = useState([]);
  //Now we will define reducer app for posts:
-  const [ posts, dispatchPosts ] = useReducer(postsReducer, [])
+  //const [ posts, dispatchPosts ] = useReducer(postsReducer, [])
 
-  function addPost(newPost){
-    dispatchPosts( prevPosts => {
-      return [...prevPosts, newPost]
-    })
-  }
+  // function addPost(newPost){
+  //   dispatch( prevPosts => {
+  //     return [...prevPosts, newPost]
+  //   })
+  // }
 
   function delPost(id) {
-    dispatchPosts(prevPosts => {
+    dispatch(prevPosts => {
       return prevPosts.filter((postItem, index) =>{
         return index !== id;
       })
@@ -65,13 +56,13 @@ function App() {
   
   return (
     <div>
-       <UserBar user={user} dispatch={dispatchUser} /> 
+       <UserBar user={user} dispatch={dispatch} /> 
   
      {user &&  <Postform 
      user={user}
      posts={posts}
-      onAdd={addPost}
-      dispatch={dispatchPosts} />}
+      //onAdd={addPost}
+      dispatch={dispatch} />}
 
       {posts.map((postItem, index) => {
         return(
@@ -80,7 +71,7 @@ function App() {
           id= {index}
           title= {postItem.title}
           content= {postItem.content}
-          handleDelete ={delPost}
+          dispatch ={dispatch}
           author={user}/>
         )
       })}

@@ -1,16 +1,17 @@
 import React from 'react'
 
-export default function Post(props, dispatch) {
+export default function Post({id, dispatch, title, content, author}) {
 
     function handleDeletePost(){
-        props.handleDelete(props.id) 
+      dispatch({type: 'POST_DEL', id})
+       // props.handleDelete(props.id) 
     }
     return (
       <div>
-        <p>{props.title}</p>
-        <p>{props.content}</p>
+        <p>{title}</p>
+        <p>{content}</p>
         <br />
-        <i>Written by <b>{props.author}</b></i>
+        <i>Written by <b>{author}</b></i>
         <button onClick={handleDeletePost} type="submit">x</button>
       </div>
     );
