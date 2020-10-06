@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Post(props) {
+export default function Post(props, dispatch) {
 
     function handleDeletePost(){
         props.handleDelete(props.id) 

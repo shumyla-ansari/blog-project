@@ -1,42 +1,61 @@
-import React, {useState} from 'react';
+import React, {useState, useReducer} from 'react';
 import '../App.css'
-import Register from './Register'
-import Login from './Logout'
-import Logout from './Login';
 import Postform from './Postform';
 import Post from './Post';
 import UserBar from './UserBar'
 
 
-function useReducer (state, action) {
+function userReducer (state, action) {
   switch (action.type) {
     case 'LOGIN':
     case 'REGISTER':
       return action.username
+
     case 'LOGOUT':
       return ''
+
     default:
       throw new Error()  
 
   }
+}
+
+function postsReducer (state, action) {
+  switch (action.type) {
+    case 'POST_FORM' :
+      const newPost = { title: action.title, content: action.content, author: action.author}
+      return [ newPost, ...state ]
+
+      default:
+        throw new Error()
+  
+    }
 }
 //the userReducer function is defined, 
 //and we can move on to defining the Reducer Hook
 
 function App() {
 
- const [ user, setUser ] = useState("");
-  const [posts, setPosts] = useState([]);
- 
+//Here we are removing useStatehook and replacing it with
+//useReducer hook.
+ //const [ user, setUser ] = useState("");
+ const [ user, dispatchUser ] = useReducer(userReducer, '' )
+ //initial state value is empty string
+ //userReducer is the reducer function, which will take current state
+ //and an action.
+
+  //const [posts, setPosts] = useState([]);
+ //Now we will define reducer app for posts:
+  const [ posts, dispatchPosts ] = useReducer(postsReducer, [])
 
   function addPost(newPost){
-    setPosts( prevPosts => {
+    dispatchPosts( prevPosts => {
       return [...prevPosts, newPost]
     })
   }
 
   function delPost(id) {
-    setPosts(prevPosts => {
+    dispatchPosts(prevPosts => {
       return prevPosts.filter((postItem, index) =>{
         return index !== id;
       })
@@ -46,11 +65,13 @@ function App() {
   
   return (
     <div>
-       <UserBar user={user} setUser={setUser} /> 
+       <UserBar user={user} dispatch={dispatchUser} /> 
   
      {user &&  <Postform 
      user={user}
-      onAdd={addPost} />}
+     posts={posts}
+      onAdd={addPost}
+      dispatch={dispatchPosts} />}
 
       {posts.map((postItem, index) => {
         return(

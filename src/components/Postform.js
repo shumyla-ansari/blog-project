@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export default function Postform(props) {
+export default function Postform({dispatch, user, posts, onAdd}) {
     
     const [post, setPost] = useState({
     title: '',
@@ -19,8 +19,8 @@ setPost(prevNote => {
 }
 
 function submitNote(evt){
-
-    props.onAdd(post);
+    dispatch({ type: 'POST_FORM', title: post.title, content: post.content, author: user })
+   // onAdd(post);
     setPost({
         title: "",
         content:""

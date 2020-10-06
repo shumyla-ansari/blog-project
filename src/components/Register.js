@@ -2,7 +2,7 @@ import React,{ useState } from 'react'
 import UserBar from "./UserBar"
 import '../App.css'
 
-export default function Register({setUser}) {
+export default function Register({dispatch}) {
 
     const[ username, setUsername] = useState({
         fname: "",
@@ -28,7 +28,7 @@ export default function Register({setUser}) {
     }
 
     function handleClick(e){
-        setUser(username)
+        dispatch({type: 'LOGOUT'})
         e.preventDefault();
 
     }
