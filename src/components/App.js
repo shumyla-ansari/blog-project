@@ -45,14 +45,14 @@ function App() {
   //   })
   // }
 
-  function delPost(id) {
-    dispatch(prevPosts => {
-      return prevPosts.filter((postItem, index) =>{
-        return index !== id;
-      })
-    }
+  // function delPost(id) {
+  //   dispatch(prevPosts => {
+  //     return prevPosts.filter((postItem, index) =>{
+  //       return index !== id;
+  //     })
+  //   }
 
-    )}
+    
   
   return (
     <div>
