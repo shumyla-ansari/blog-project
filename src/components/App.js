@@ -8,6 +8,20 @@ import Post from './Post';
 import UserBar from './UserBar'
 
 
+function useReducer (state, action) {
+  switch (action.type) {
+    case 'LOGIN':
+    case 'REGISTER':
+      return action.username
+    case 'LOGOUT':
+      return ''
+    default:
+      throw new Error()  
+
+  }
+}
+//the userReducer function is defined, 
+//and we can move on to defining the Reducer Hook
 
 function App() {
 
