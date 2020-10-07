@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import {StateContext} from'./context'
 //import UserBar from './UserBar'
 //import App from'./App'
 import '../App.css'
 
-export default function Logout({user, dispatch}) {
+export default function Logout() {
+    const { state, dispatch }= useContext(StateContext)
+    const { user } = state
+
 
     return (
         <div>

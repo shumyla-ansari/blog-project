@@ -1,8 +1,10 @@
-import React,{ useState } from 'react'
+import React,{ useState, useContext } from 'react'
+import { StateContext } from './context'
 //import UserBar from "./UserBar"
 import '../App.css'
 
-export default function Register({dispatch}) {
+export default function Register() {
+const { dispatch } = useContext(StateContext)
 
     const[ username, setUsername] = useState({
         fname: "",

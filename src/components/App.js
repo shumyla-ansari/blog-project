@@ -6,7 +6,8 @@ import UserBar from './UserBar'
 import appReducer from './Reducers'
 import Header from './Header'
 import ChangeTheme from './ChangeTheme'
-import { ThemeContext } from './context'
+import { ThemeContext, StateContext } from './context'
+
 
 
 //the userReducer function is defined in Reducers.js now
@@ -62,20 +63,17 @@ function App() {
   
   return (
     <div>
+      <StateContext.Provider value={{ state, dispatch }}>
       <ThemeContext.Provider value={{ theme }}>
         <Header text="React Hook Blog" />
         <ChangeTheme theme ={theme} setTheme ={setTheme} />
         <br />
     
 
-      <UserBar user={user} dispatch={dispatch} />
+      <UserBar  />
 
       {user && (
         <Postform
-          user={user}
-          posts={posts}
-          //onAdd={addPost}
-          dispatch={dispatch}
         />
       )}
 
@@ -86,13 +84,12 @@ function App() {
             id={index}
             title={postItem.title}
             content={postItem.content}
-            dispatch={dispatch}
-            author={user}
           />
         );
       })}
 
 </ThemeContext.Provider>
+</StateContext.Provider>
     </div>
   );
 }

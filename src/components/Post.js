@@ -1,7 +1,10 @@
 import React, { useContext } from 'react'
-import { ThemeContext } from './context'
+import { ThemeContext, StateContext } from './context'
 
-export default function Post({id, dispatch, title, content, author}) {
+export default function Post({id, title, content, author}) {
+  const {state, dispatch} = useContext(StateContext)
+  const {user} = state
+  
 
   const { secondaryColor } = useContext(ThemeContext)
 

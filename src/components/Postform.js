@@ -1,6 +1,10 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
+import { StateContext } from './context';
 
-export default function Postform({dispatch, user, posts, onAdd}) {
+
+export default function Postform() {
+    const {state, dispatch} = useContext(StateContext)
+    const {user} = state
     
     const [post, setPost] = useState({
     title: '',
