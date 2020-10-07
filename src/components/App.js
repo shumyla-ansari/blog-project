@@ -64,32 +64,27 @@ function App() {
   return (
     <div>
       <StateContext.Provider value={{ state, dispatch }}>
-      <ThemeContext.Provider value={{ theme }}>
-        <Header text="React Hook Blog" />
-        <ChangeTheme theme ={theme} setTheme ={setTheme} />
-        <br />
-    
-
-      <UserBar  />
-
-      {user && (
-        <Postform
-        />
-      )}
-
-      {posts.map((postItem, index) => {
-        return (
-          <Post
-            key={index}
-            id={index}
-            title={postItem.title}
-            content={postItem.content}
-          />
-        );
-      })}
-
-</ThemeContext.Provider>
-</StateContext.Provider>
+        <ThemeContext.Provider value={ theme }>
+          <Header text="React Hook Blog" />
+          <ChangeTheme theme={theme} setTheme={setTheme} />
+          <br />
+          <UserBar />
+          {user && <Postform />}
+          {posts.map((postItem, index) => {
+            return (
+              <div>
+                <Post
+                  key={index}
+                  id={index}
+                  title={postItem.title}
+                  content={postItem.content}
+                />
+                <hr />
+              </div>
+            );
+          })}
+        </ThemeContext.Provider>
+      </StateContext.Provider>
     </div>
   );
 }

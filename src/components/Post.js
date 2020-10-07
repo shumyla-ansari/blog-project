@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { ThemeContext, StateContext } from './context'
 
-export default function Post({id, title, content, author}) {
+export default function Post({id, title, content}) {
   const {state, dispatch} = useContext(StateContext)
   const {user} = state
   
@@ -17,7 +17,7 @@ export default function Post({id, title, content, author}) {
         <h3 style={{ color : secondaryColor }}>{title}</h3>
         <p>{content}</p>
         <br />
-        <i>Written by <b>{author}</b></i>
+        <i>Written by <b>{user}</b></i>
         <button onClick={handleDeletePost} type="submit">x</button>
       </div>
     );
