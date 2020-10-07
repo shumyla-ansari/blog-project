@@ -1,10 +1,12 @@
-import React, { useReducer, useEffect} from 'react';
+import React, { useReducer, useEffect, useState} from 'react';
 import '../App.css'
 import Postform from './Postform';
 import Post from './Post';
 import UserBar from './UserBar'
 import appReducer from './Reducers'
-
+import Header from './Header'
+import ChangeTheme from './ChangeTheme'
+import { ThemeContext } from './context'
 
 
 //the userReducer function is defined in Reducers.js now
@@ -12,6 +14,10 @@ import appReducer from './Reducers'
 
 function App() {
 
+  const [ theme, setTheme ] = useState({
+    primaryColor: 'deepskyblue',
+    secondaryColor: 'coral'
+  })
 
   const [ state, dispatch ] = useReducer(appReducer, {user: '', posts: [] })
 
@@ -56,27 +62,37 @@ function App() {
   
   return (
     <div>
-       <UserBar user={user} dispatch={dispatch} /> 
-  
-     {user &&  <Postform 
-     user={user}
-     posts={posts}
-      //onAdd={addPost}
-      dispatch={dispatch} />}
+      <ThemeContext.Provider value={{ theme }}>
+        <Header text="React Hook Blog" />
+        <ChangeTheme theme ={theme} setTheme ={setTheme} />
+        <br />
+    
+
+      <UserBar user={user} dispatch={dispatch} />
+
+      {user && (
+        <Postform
+          user={user}
+          posts={posts}
+          //onAdd={addPost}
+          dispatch={dispatch}
+        />
+      )}
 
       {posts.map((postItem, index) => {
-        return(
+        return (
           <Post
-          key = {index}
-          id= {index}
-          title= {postItem.title}
-          content= {postItem.content}
-          dispatch ={dispatch}
-          author={user}/>
-        )
+            key={index}
+            id={index}
+            title={postItem.title}
+            content={postItem.content}
+            dispatch={dispatch}
+            author={user}
+          />
+        );
       })}
-     
-    
+
+</ThemeContext.Provider>
     </div>
   );
 }
